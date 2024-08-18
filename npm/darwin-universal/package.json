@@ -1,0 +1,15 @@
+{
+  "name": "@nmc/glob-rs-darwin-universal",
+  "version": "0.0.0",
+  "os": [
+    "darwin"
+  ],
+  "main": "glob-rs.darwin-universal.node",
+  "files": [
+    "glob-rs.darwin-universal.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}
