@@ -1,5 +1,5 @@
 {
-  "name": "@nmc/glob-rs-darwin-x64",
+  "name": "@de/glob-rs-darwin-x64",
   "version": "0.0.0",
   "os": [
     "darwin"
@@ -11,8 +11,10 @@
   "files": [
     "glob-rs.darwin-x64.node"
   ],
+  "description": "The Rust version of the Glob library is currently serving NMC scaffolding",
   "license": "MIT",
   "engines": {
     "node": ">= 10"
-  }
+  },
+  "repository": "https://github.com/Digital-efficiency/glob-rs"
 }

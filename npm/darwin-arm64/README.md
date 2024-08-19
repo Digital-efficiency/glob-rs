@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-darwin-arm64`
+# `@de/glob-rs-darwin-arm64`
 
-This is the **aarch64-apple-darwin** binary for `@nmc/glob-rs`
+This is the **aarch64-apple-darwin** binary for `@de/glob-rs`

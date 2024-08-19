@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-win32-arm64-msvc`
+# `@de/glob-rs-win32-arm64-msvc`
 
-This is the **aarch64-pc-windows-msvc** binary for `@nmc/glob-rs`
+This is the **aarch64-pc-windows-msvc** binary for `@de/glob-rs`

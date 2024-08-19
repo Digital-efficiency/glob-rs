@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-android-arm-eabi`
+# `@de/glob-rs-android-arm-eabi`
 
-This is the **armv7-linux-androideabi** binary for `@nmc/glob-rs`
+This is the **armv7-linux-androideabi** binary for `@de/glob-rs`

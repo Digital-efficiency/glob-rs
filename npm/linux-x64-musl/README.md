@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-linux-x64-musl`
+# `@de/glob-rs-linux-x64-musl`
 
-This is the **x86_64-unknown-linux-musl** binary for `@nmc/glob-rs`
+This is the **x86_64-unknown-linux-musl** binary for `@de/glob-rs`

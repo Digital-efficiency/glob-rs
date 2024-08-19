@@ -1,5 +1,5 @@
 {
-  "name": "@nmc/glob-rs",
+  "name": "@de/glob-rs",
   "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
@@ -42,5 +42,7 @@
     "test": "ava",
     "universal": "napi universal",
     "version": "napi version"
-  }
+  },
+  "repository": "https://github.com/Digital-efficiency/glob-rs",
+  "description": "The Rust version of the Glob library is currently serving NMC scaffolding"
 }

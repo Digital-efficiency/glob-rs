@@ -1,5 +1,5 @@
 {
-  "name": "@nmc/glob-rs-win32-arm64-msvc",
+  "name": "@de/glob-rs-win32-arm64-msvc",
   "version": "0.0.0",
   "os": [
     "win32"
@@ -11,8 +11,10 @@
   "files": [
     "glob-rs.win32-arm64-msvc.node"
   ],
+  "description": "The Rust version of the Glob library is currently serving NMC scaffolding",
   "license": "MIT",
   "engines": {
     "node": ">= 10"
-  }
+  },
+  "repository": "https://github.com/Digital-efficiency/glob-rs"
 }
