@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-linux-riscv64-gnu`
+# `@de/glob-rs-linux-riscv64-gnu`
 
-This is the **riscv64gc-unknown-linux-gnu** binary for `@nmc/glob-rs`
+This is the **riscv64gc-unknown-linux-gnu** binary for `@de/glob-rs`

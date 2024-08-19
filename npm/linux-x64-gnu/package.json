@@ -1,5 +1,5 @@
 {
-  "name": "@nmc/glob-rs-linux-x64-gnu",
+  "name": "@de/glob-rs-linux-x64-gnu",
   "version": "0.0.0",
   "os": [
     "linux"
@@ -11,10 +11,12 @@
   "files": [
     "glob-rs.linux-x64-gnu.node"
   ],
+  "description": "The Rust version of the Glob library is currently serving NMC scaffolding",
   "license": "MIT",
   "engines": {
     "node": ">= 10"
   },
+  "repository": "https://github.com/Digital-efficiency/glob-rs",
   "libc": [
     "glibc"
   ]

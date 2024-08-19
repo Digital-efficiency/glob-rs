@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-darwin-x64`
+# `@de/glob-rs-darwin-x64`
 
-This is the **x86_64-apple-darwin** binary for `@nmc/glob-rs`
+This is the **x86_64-apple-darwin** binary for `@de/glob-rs`

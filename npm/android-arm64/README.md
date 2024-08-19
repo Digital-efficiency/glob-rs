@@ -1,3 +1,3 @@
-# `@nmc/glob-rs-android-arm64`
+# `@de/glob-rs-android-arm64`
 
-This is the **aarch64-linux-android** binary for `@nmc/glob-rs`
+This is the **aarch64-linux-android** binary for `@de/glob-rs`
