@@ -1,4 +1,4 @@
-import test from 'ava'
+// import test from 'ava'
 
 import { findMatchingFiles, readFileContent } from '../index.js'
 
