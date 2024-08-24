@@ -184,7 +184,7 @@ jobs:
             cargo --version
             
             echo "安装项目依赖"
-            yarn install --frozen-lockfile
+            yarn install
             
             echo "构建项目"
             yarn build
