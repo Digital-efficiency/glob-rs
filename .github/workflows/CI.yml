@@ -159,7 +159,7 @@ jobs:
           RUSTUP_IO_THREADS: 1
         with:
           operating_system: freebsd
-          version: '13.3'
+          version: '14.0'
           memory: 8G
           cpu_count: 3
           environment_variables: DEBUG RUSTUP_IO_THREADS
@@ -175,10 +175,7 @@ jobs:
             echo 'FreeBSD: { url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest" }' | sudo tee /usr/local/etc/pkg/repos/FreeBSD.conf
             
             sudo pkg upgrade -y
-            sudo pkg install -y curl node16 npm yarn rust
-
-            # 安装最新的 Node.js
-            sudo pkg install -y node
+            sudo pkg install -y curl node npm yarn rust
             
             node -v
             npm -v
