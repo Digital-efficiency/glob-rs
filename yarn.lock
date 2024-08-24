@@ -43,6 +43,46 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@oxlint/darwin-arm64@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/darwin-arm64/-/darwin-arm64-0.7.2.tgz#fcc1f3959fba9794937691aa7fd7ea06dac588ae"
+  integrity sha512-v52+QbzNYU/DLg04KVLyYVid82BL4a6RTz6GZyCVXXqMSgS+t4SDbphPiNY3bC7CzsmHGEUXVoNruiGBvHgGVg==
+
+"@oxlint/darwin-x64@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/darwin-x64/-/darwin-x64-0.7.2.tgz#e65f04369a1691265aa502f3dc4d2d9b29aed773"
+  integrity sha512-4TsqICDON7W56/O4gvD1GsP+aSO5xJ+XEr0MLzF6CDmU1wpyW8MUonFBn8XrrZIxrbNHrmE7US3j6Fwn7GE2vQ==
+
+"@oxlint/linux-arm64-gnu@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/linux-arm64-gnu/-/linux-arm64-gnu-0.7.2.tgz#8034a3e5d69d5b268d8ca798ad81f72158fb5da1"
+  integrity sha512-RA/JdWvKZyMJhJGwxPvSFX5mEEvnLIKzl4QRCxz0+Bs532CHS7Apt6Rcx3oCO4I8TFMx0ltlUoUQTH1SOvENuw==
+
+"@oxlint/linux-arm64-musl@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/linux-arm64-musl/-/linux-arm64-musl-0.7.2.tgz#00bfbd5174b41358a824f4622ebed69e5b6ccc26"
+  integrity sha512-ruQJdb02hDUBKUAFdcCVV6BC5M34xhlJUUiejGdG5zkhzzoFxf+ZFa/YEMqvyYlSuRSBLUJ+h3ypVYzX4crHOQ==
+
+"@oxlint/linux-x64-gnu@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/linux-x64-gnu/-/linux-x64-gnu-0.7.2.tgz#7c478a95f8e75888afa8276809a23e16d08b5442"
+  integrity sha512-DhrWEVKEQb5ze1VRdBn/PHGo480OZ29cub5x4HMXdNBIYWThReyov53WuKUGK4gGTFroajOeuqnOTsgc84v2Hg==
+
+"@oxlint/linux-x64-musl@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/linux-x64-musl/-/linux-x64-musl-0.7.2.tgz#4445837d02a818169f6594a4fd8843ecee130b5d"
+  integrity sha512-Hs3apFE7wAp0k18g1ZqQX+TutA4iZbOEyylERPsO5g0Mbsrx1Cy2QWPEYUdzQybMcSR7V5/k9lEcmPSMVk6P4g==
+
+"@oxlint/win32-arm64@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/win32-arm64/-/win32-arm64-0.7.2.tgz#187166751b5be3fa04b05b70229f03e7c7d0764e"
+  integrity sha512-kxMbhtYFH29WqSRkJhtWu2CJcbX7pQylxonZUKpH0nGXtVhUkgn/z+nkNXVQUHrUhWz6V1jxsohpFXqfFOPvSg==
+
+"@oxlint/win32-x64@0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@oxlint/win32-x64/-/win32-x64-0.7.2.tgz#1d076470395546bd55bcbc2ea60cae2c24319b09"
+  integrity sha512-vIcCWG4ev8sntCiUe2tHVJnAZCcv8BlUlXCb5bVEdgma/e+oVD6Rc0Ed0qlEkH7aKiztY3I6vc/CGBRTV/OMxg==
+
 "@rollup/pluginutils@^4.0.0":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-4.2.1.tgz#e6c6c3aba0744edce3fb2074922d3776c0af2a6d"
@@ -701,9 +741,9 @@ merge2@^1.3.0:
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
 micromatch@^4.0.2, micromatch@^4.0.4:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.7.tgz#33e8190d9fe474a9895525f5618eee136d46c2e5"
-  integrity sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.8.tgz#d66fa18f3a47076789320b9b1af32bd86d9fa202"
+  integrity sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==
   dependencies:
     braces "^3.0.3"
     picomatch "^2.3.1"
@@ -800,6 +840,20 @@ once@^1.3.0:
   integrity sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==
   dependencies:
     wrappy "1"
+
+oxlint@^0.7.0:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/oxlint/-/oxlint-0.7.2.tgz#01588710cf9de9a5f9cc4452635e913593affff8"
+  integrity sha512-zB8Axw4l0HgAK8lwsEdv3QSuAJEz0g+LuSinHPoMXA1PDcVkk/edkeee7ueNCM2ZGZKdMzqS55vAXdKWAD7n7A==
+  optionalDependencies:
+    "@oxlint/darwin-arm64" "0.7.2"
+    "@oxlint/darwin-x64" "0.7.2"
+    "@oxlint/linux-arm64-gnu" "0.7.2"
+    "@oxlint/linux-arm64-musl" "0.7.2"
+    "@oxlint/linux-x64-gnu" "0.7.2"
+    "@oxlint/linux-x64-musl" "0.7.2"
+    "@oxlint/win32-arm64" "0.7.2"
+    "@oxlint/win32-x64" "0.7.2"
 
 p-map@^7.0.1:
   version "7.0.2"
