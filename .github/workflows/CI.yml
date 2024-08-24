@@ -1,8 +1,9 @@
 name: CI
 env:
   DEBUG: napi:*
-  APP_NAME: glob-rs
+  APP_NAME: package-template
   MACOSX_DEPLOYMENT_TARGET: '10.13'
+  CARGO_INCREMENTAL: '1'
 permissions:
   contents: write
   id-token: write
@@ -19,6 +20,9 @@ permissions:
       - .editorconfig
       - docs/**
   pull_request: null
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     strategy:
@@ -32,9 +36,7 @@ jobs:
             build: yarn build --target x86_64-pc-windows-msvc
             target: x86_64-pc-windows-msvc
           - host: windows-latest
-            build: |
-              yarn build --target i686-pc-windows-msvc
-              yarn test
+            build: yarn build --target i686-pc-windows-msvc
             target: i686-pc-windows-msvc
           - host: ubuntu-latest
             target: x86_64-unknown-linux-gnu
@@ -56,10 +58,8 @@ jobs:
             setup: |
               sudo apt-get update
               sudo apt-get install gcc-arm-linux-gnueabihf -y
-            build: yarn build --target armv7-unknown-linux-gnueabihf
-          - host: ubuntu-latest
-            target: armv7-unknown-linux-musleabihf
-            build: yarn build --target armv7-unknown-linux-musleabihf
+            build: |
+              yarn build --target armv7-unknown-linux-gnueabihf
           - host: ubuntu-latest
             target: aarch64-linux-android
             build: yarn build --target aarch64-linux-android
@@ -76,13 +76,7 @@ jobs:
           - host: windows-latest
             target: aarch64-pc-windows-msvc
             build: yarn build --target aarch64-pc-windows-msvc
-          - host: ubuntu-latest
-            target: riscv64gc-unknown-linux-gnu
-            setup: |
-              sudo apt-get update
-              sudo apt-get install gcc-riscv64-linux-gnu -y
-            build: yarn build --target riscv64gc-unknown-linux-gnu
-    name: stable - ${{ matrix.settings.target }} - node@20
+    name: stable - ${{ matrix.settings.target }} - node@18
     runs-on: ${{ matrix.settings.host }}
     steps:
       - uses: actions/checkout@v4
@@ -109,26 +103,15 @@ jobs:
             target/
           key: ${{ matrix.settings.target }}-cargo-${{ matrix.settings.host }}
       - uses: goto-bus-stop/setup-zig@v2
-        if: ${{ matrix.settings.target == 'armv7-unknown-linux-gnueabihf' || matrix.settings.target == 'armv7-unknown-linux-musleabihf' }}
+        if: ${{ matrix.settings.target == 'armv7-unknown-linux-gnueabihf' }}
         with:
           version: 0.13.0
       - name: Setup toolchain
         run: ${{ matrix.settings.setup }}
         if: ${{ matrix.settings.setup }}
         shell: bash
-      - name: Setup node x86
-        if: matrix.settings.target == 'i686-pc-windows-msvc'
-        run: yarn config set supportedArchitectures.cpu "ia32"
-        shell: bash
       - name: Install dependencies
         run: yarn install
-      - name: Setup node x86
-        uses: actions/setup-node@v4
-        if: matrix.settings.target == 'i686-pc-windows-msvc'
-        with:
-          node-version: 20
-          cache: yarn
-          architecture: x86
       - name: Build in docker
         uses: addnab/docker-run-action@v3
         if: ${{ matrix.settings.docker }}
@@ -147,59 +130,45 @@ jobs:
           path: ${{ env.APP_NAME }}.*.node
           if-no-files-found: error
   build-freebsd:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
     name: Build FreeBSD
     steps:
       - uses: actions/checkout@v4
       - name: Build
         id: build
-        uses: cross-platform-actions/action@v0.24.0
+        uses: cross-platform-actions/action@v0.25.0
         env:
           DEBUG: napi:*
           RUSTUP_IO_THREADS: 1
         with:
           operating_system: freebsd
-          version: '13.3'
+          version: '14.0'
           memory: 8G
           cpu_count: 3
-          environment_variables: DEBUG RUSTUP_IO_THREADS
+          environment_variables: 'DEBUG RUSTUP_IO_THREADS'
           shell: bash
           run: |
-            set -ex
-            
-            # 强制更新包数据库
-            sudo pkg update -f
-            
-            # 使用特定镜像
-            sudo mkdir -p /usr/local/etc/pkg/repos
-            echo 'FreeBSD: { url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest" }' | sudo tee /usr/local/etc/pkg/repos/FreeBSD.conf
-            
-            sudo pkg upgrade -y
-            sudo pkg install -y curl node16 npm yarn rust
-
-            # 安装最新的 Node.js
-            sudo pkg install -y node
-            
-            node -v
-            npm -v
-            yarn --version
+            sudo pkg install -y -f curl node libnghttp2 npm
+            sudo npm install -g yarn --ignore-scripts
+            curl https://sh.rustup.rs -sSf --output rustup.sh
+            sh rustup.sh -y --profile minimal --default-toolchain beta
+            source "$HOME/.cargo/env"
+            echo "~~~~ rustc --version ~~~~"
             rustc --version
-            cargo --version
-            
-            echo "安装项目依赖"
-            yarn install --frozen-lockfile
-            
-            echo "构建项目"
+            echo "~~~~ node -v ~~~~"
+            node -v
+            echo "~~~~ yarn --version ~~~~"
+            yarn --version
+            pwd
+            ls -lah
+            whoami
+            env
+            freebsd-version
+            yarn install
             yarn build
-            
-            echo "运行测试"
-            yarn test
-            
-            echo "清理"
-            rm -rf node_modules target .yarn/cache
-            
-            echo "列出生成的文件"
-            ls -la
+            rm -rf node_modules
+            rm -rf target
+            rm -rf .yarn/cache
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -214,10 +183,15 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          - host: macos-latest
-            target: x86_64-apple-darwin
           - host: windows-latest
             target: x86_64-pc-windows-msvc
+            architecture: x64
+          - host: macos-latest
+            target: aarch64-apple-darwin
+            architecture: arm64
+          - host: macos-latest
+            target: x86_64-apple-darwin
+            architecture: x64
         node:
           - '18'
           - '20'
@@ -229,7 +203,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
-          architecture: x64
+          architecture: ${{ matrix.settings.architecture }}
       - name: Install dependencies
         run: yarn install
       - name: Download artifacts
@@ -345,7 +319,7 @@ jobs:
             yarn test
             ls -la
   test-linux-aarch64-musl-binding:
-    name: Test bindings on aarch64-unknown-linux-musl - node@${{ matrix.node }}
+    name: Test bindings on aarch64-unknown-linux-musl - node@lts
     needs:
       - build
     runs-on: ubuntu-latest
@@ -416,38 +390,6 @@ jobs:
             set -e
             yarn test
             ls -la
-  universal-macOS:
-    name: Build universal macOS binary
-    needs:
-      - build
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: yarn
-      - name: Install dependencies
-        run: yarn install
-      - name: Download macOS x64 artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: bindings-x86_64-apple-darwin
-          path: artifacts
-      - name: Download macOS arm64 artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: bindings-aarch64-apple-darwin
-          path: artifacts
-      - name: Combine binaries
-        run: yarn universal
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: bindings-universal-apple-darwin
-          path: ${{ env.APP_NAME }}.*.node
-          if-no-files-found: error
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -459,7 +401,6 @@ jobs:
       - test-linux-aarch64-gnu-binding
       - test-linux-aarch64-musl-binding
       - test-linux-arm-gnueabihf-binding
-      - universal-macOS
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
