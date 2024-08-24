@@ -159,34 +159,44 @@ jobs:
           RUSTUP_IO_THREADS: 1
         with:
           operating_system: freebsd
-          version: '13.2'
+          version: '14.0'
           memory: 8G
           cpu_count: 3
           environment_variables: DEBUG RUSTUP_IO_THREADS
           shell: bash
           run: |
-            sudo pkg install -y -f curl node libnghttp2 npm
-            sudo npm install -g yarn --ignore-scripts
-            curl https://sh.rustup.rs -sSf --output rustup.sh
-            sh rustup.sh -y --profile minimal --default-toolchain stable
-            source "$HOME/.cargo/env"
-            echo "~~~~ rustc --version ~~~~"
-            rustc --version
-            echo "~~~~ node -v ~~~~"
+            set -ex
+            
+            # 强制更新包数据库
+            sudo pkg update -f
+            
+            # 使用特定镜像
+            sudo mkdir -p /usr/local/etc/pkg/repos
+            echo 'FreeBSD: { url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest" }' | sudo tee /usr/local/etc/pkg/repos/FreeBSD.conf
+            
+            sudo pkg upgrade -y
+            sudo pkg install -y curl node npm yarn rust
+            
             node -v
-            echo "~~~~ yarn --version ~~~~"
+            npm -v
             yarn --version
-            pwd
-            ls -lah
-            whoami
-            env
-            freebsd-version
+            rustc --version
+            cargo --version
+            
+            echo "安装项目依赖"
             yarn install
+            
+            echo "构建项目"
             yarn build
+            
+            echo "运行测试"
             yarn test
-            rm -rf node_modules
-            rm -rf target
-            rm -rf .yarn/cache
+            
+            echo "清理"
+            rm -rf node_modules target .yarn/cache
+            
+            echo "列出生成的文件"
+            ls -la
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
