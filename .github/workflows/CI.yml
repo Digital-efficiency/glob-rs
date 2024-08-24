@@ -165,28 +165,30 @@ jobs:
           environment_variables: DEBUG RUSTUP_IO_THREADS
           shell: bash
           run: |
-            sudo pkg install -y -f curl node libnghttp2 npm
-            sudo npm install -g yarn --ignore-scripts
-            curl https://sh.rustup.rs -sSf --output rustup.sh
-            sh rustup.sh -y --profile minimal --default-toolchain stable
-            source "$HOME/.cargo/env"
-            echo "~~~~ rustc --version ~~~~"
-            rustc --version
-            echo "~~~~ node -v ~~~~"
+            set -ex
+            sudo pkg update
+            sudo pkg upgrade -y
+            sudo pkg install -y -f curl node16 npm yarn rust
             node -v
-            echo "~~~~ yarn --version ~~~~"
+            npm -v
             yarn --version
-            pwd
-            ls -lah
-            whoami
-            env
-            freebsd-version
-            yarn install
+            rustc --version
+            cargo --version
+            
+            echo "安装项目依赖"
+            yarn install --frozen-lockfile
+            
+            echo "构建项目"
             yarn build
+            
+            echo "运行测试"
             yarn test
-            rm -rf node_modules
-            rm -rf target
-            rm -rf .yarn/cache
+            
+            echo "清理"
+            rm -rf node_modules target .yarn/cache
+            
+            echo "列出生成的文件"
+            ls -la
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
