@@ -176,6 +176,9 @@ jobs:
             
             sudo pkg upgrade -y
             sudo pkg install -y curl node16 npm yarn rust
+
+            # 安装最新的 Node.js
+            sudo pkg install -y node
             
             node -v
             npm -v
