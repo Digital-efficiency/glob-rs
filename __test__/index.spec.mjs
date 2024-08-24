@@ -9,6 +9,5 @@ test('find_matching_files function pass', (t) => {
 
 test('read_file_content function pass', (t) => {
   const result = readFileContent('./index.js');
-  console.log(result)
   t.is(typeof result, 'string');
 })
