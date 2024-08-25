@@ -51,5 +51,6 @@
     "version": "napi version"
   },
   "repository": "https://github.com/Digital-efficiency/glob-rs",
+  "homepage": "https://github.com/Digital-efficiency/glob-rs",
   "description": "The Rust version of the Glob library is currently serving NMC scaffolding"
 }
