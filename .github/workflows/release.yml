@@ -1,25 +1,46 @@
-name: Create Release Notes
- 
+name: Create Detailed Release Notes
+
 on:
   push:
     tags:
       - '*'
- 
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
- 
-    - name: Create Release Notes
-      id: create_release_notes
+      with:
+        fetch-depth: 0
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - name: Install github-changelog-generator
+      run: gem install github_changelog_generator
+
+    - name: Generate Changelog
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        github_changelog_generator \
+          --user ${GITHUB_REPOSITORY%/*} \
+          --project ${GITHUB_REPOSITORY#*/} \
+          --token $GITHUB_TOKEN \
+          --since-tag $(git describe --tags --abbrev=0 HEAD^) \
+          --output CHANGELOG.md
+
+    - name: Create Release
+      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref_name }}
-        body: |
-          Changes in this release:
-          - Includes all commits up to ${{ github.ref }}
+        body_path: CHANGELOG.md
+        draft: false
+        prerelease: false
