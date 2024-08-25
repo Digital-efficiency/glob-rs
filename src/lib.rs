@@ -28,7 +28,6 @@ pub fn find_matching_files(patterns: Vec<String>, max_depth: Option<u32>, dir: O
       walk_builder.add_ignore(dir);
     }
   }
-
   for result in walk_builder.build() {
     match result {
       Ok(entry) => {
